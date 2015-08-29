@@ -26,7 +26,7 @@ func handle(c *Config) {
 		log.Println(task)
 		browser.Snapshot(task.Url, task.Path)
 		return nil
-	}), 2)
+	}), c.Workers)
 
 	err1 := r.ConnectToNSQD(c.NsqAddr)
 	

@@ -1,11 +1,12 @@
 package main
 
 import (
-	// "io/ioutil"
+	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
 	"time"
+	"path/filepath"
 )
 
 type Browser struct {
@@ -42,17 +43,30 @@ func NewIPhoneBrowser() *Browser {
 
 func (b *Browser) Snapshot(url string, path string) error {
 	var err error = nil
+	// os.Readlink("/proc/self/exe")
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+    if err != nil {
+            log.Fatal(err)
+    }
+    log.Println(dir)
 	cmd := exec.Command(
 		"casperjs",
-		"--ssl-protocol", "=", "any",
-		"--ignore-ssl-errors", "=", "true",
-		"file.js",
+		"--ssl-protocol=any",
+		"--ignore-ssl-errors=true",
+		filepath.Join(dir, "scripts", "snapshot.js"),
 	)
 	env := os.Environ()
-	env = append(env, "LC_CTYPE=en_US.UTF-8", "PATHEXT=/usr/local/casperjs/bin:/usr/local/phantomjs/bin")
+	env = append(
+		env,
+		"LC_CTYPE=en_US.UTF-8",
+		"PATH=/usr/local/casperjs/bin:/usr/local/phantomjs/bin",
+	)
 	cmd.Env = env
-	// outPipe, _ := cmd.StdoutPipe()
-	// errPipe, _ := cmd.StderrPipe()
+	
+	log.Print(cmd.Args)
+	
+	outPipe, _ := cmd.StdoutPipe()
+	errPipe, _ := cmd.StderrPipe()
 
 	startErr := cmd.Start()
 
@@ -61,7 +75,11 @@ func (b *Browser) Snapshot(url string, path string) error {
 		return startErr
 	}
 
-	// stdOutput, _ := ioutil.ReadAll(outPipe)
+	stdOutput, _ := ioutil.ReadAll(outPipe)
+	errOutput, _ := ioutil.ReadAll(errPipe)
+	
+	log.Print(string(stdOutput))
+	log.Fatal(string(errOutput))
 
 	done := make(chan error, 1)
 	go func() {
