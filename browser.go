@@ -24,7 +24,7 @@ type Proxy struct {
 	Port int
 }
 
-func NewMacBrowser(c *Config) *Browser {
+func NewMacBrowser() *Browser {
 	return &Browser{
 		ViewPort:  &ViewPort{Width: 1280, Height: 800},
 		UserAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.94 Safari/537.36",
@@ -32,7 +32,7 @@ func NewMacBrowser(c *Config) *Browser {
 	}
 }
 
-func NewIPhoneBrowser(c *Config) *Browser {
+func NewIPhoneBrowser() *Browser {
 	return &Browser{
 		ViewPort:  &ViewPort{Width: 640, Height: 960},
 		UserAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X; en-us) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53",

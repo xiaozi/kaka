@@ -10,6 +10,7 @@ type Config struct {
 	AccessKey string
 	SecretKey string
 	Bucket    string
+	NsqAddr   string
 }
 
 func NewConfig() *Config {
@@ -17,5 +18,10 @@ func NewConfig() *Config {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	return &Config{AccessKey: os.Getenv("ACCESS_KEY"), SecretKey: os.Getenv("SECRET_KEY"), Bucket: os.Getenv("BUCKET")}
+	return &Config{
+		AccessKey: os.Getenv("ACCESS_KEY"),
+		SecretKey: os.Getenv("SECRET_KEY"),
+		Bucket: os.Getenv("BUCKET"),
+		NsqAddr: os.Getenv("NSQ_ADDR"),
+	}
 }
