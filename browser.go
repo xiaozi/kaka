@@ -1,13 +1,13 @@
 package main
 
 import (
-//	"io/ioutil"
+	//	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
-	"time"
 	"path/filepath"
 	"strconv"
+	"time"
 )
 
 type Browser struct {
@@ -46,20 +46,20 @@ func (b *Browser) Snapshot(url string, path string, timeout int) error {
 	var err error = nil
 	// os.Readlink("/proc/self/exe")
 	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
-    if err != nil {
-            log.Fatal(err)
-    }
-    log.Println(dir)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println(dir)
 	cmd := exec.Command(
 		"casperjs",
 		"--ssl-protocol=any",
 		"--ignore-ssl-errors=true",
 		filepath.Join(dir, "scripts", "snapshot.js"),
-		"--width=" + strconv.Itoa(b.ViewPort.Width),
-		"--height=" + strconv.Itoa(b.ViewPort.Height),
-		"--useragent=" + b.UserAgent,
-		"--url=" + url,
-		"--path=" + path,
+		"--width="+strconv.Itoa(b.ViewPort.Width),
+		"--height="+strconv.Itoa(b.ViewPort.Height),
+		"--useragent="+b.UserAgent,
+		"--url="+url,
+		"--path="+path,
 	)
 	env := os.Environ()
 	env = append(
@@ -68,11 +68,11 @@ func (b *Browser) Snapshot(url string, path string, timeout int) error {
 		"PATH=/usr/local/node/bin:/usr/local/phantomjs/bin",
 	)
 	cmd.Env = env
-	
+
 	log.Print(cmd.Args)
-	
-//	outPipe, _ := cmd.StdoutPipe()
-//	errPipe, _ := cmd.StderrPipe()
+
+	//	outPipe, _ := cmd.StdoutPipe()
+	//	errPipe, _ := cmd.StderrPipe()
 
 	startErr := cmd.Start()
 
@@ -81,11 +81,11 @@ func (b *Browser) Snapshot(url string, path string, timeout int) error {
 		return startErr
 	}
 
-//	stdOutput, _ := ioutil.ReadAll(outPipe)
-//	errOutput, _ := ioutil.ReadAll(errPipe)
-	
-//	log.Print(string(stdOutput))
-//	log.Fatal(string(errOutput))
+	//	stdOutput, _ := ioutil.ReadAll(outPipe)
+	//	errOutput, _ := ioutil.ReadAll(errPipe)
+
+	//	log.Print(string(stdOutput))
+	//	log.Fatal(string(errOutput))
 
 	done := make(chan error, 1)
 	go func() {

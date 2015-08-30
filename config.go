@@ -26,9 +26,9 @@ func NewConfig() *Config {
 	return &Config{
 		AccessKey: os.Getenv("ACCESS_KEY"),
 		SecretKey: os.Getenv("SECRET_KEY"),
-		Bucket: os.Getenv("BUCKET"),
-		NsqAddr: os.Getenv("NSQ_ADDR"),
-		Workers: int(workers),
-		Timeout: int(timeout),
+		Bucket:    os.Getenv("BUCKET"),
+		NsqAddr:   os.Getenv("NSQ_ADDR"),
+		Workers:   int(workers),
+		Timeout:   int(timeout),
 	}
 }
