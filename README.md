@@ -40,6 +40,10 @@ message struct
 ### FAQ
 
 1. [使用casperjs截出优雅的图片](http://type.so/linux/casperjs-capture-nice.html)
+   
+2. Multi network environment?
+   
+   Just deploy multi kaka instance, and use different nsq channel, that will be OK.
 
 ### Development
 
