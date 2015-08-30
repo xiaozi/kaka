@@ -29,13 +29,13 @@ message struct
 }
 ```
 
-> url: the url you want to take a snapshot
+> url: (required) the url you want to take a snapshot
 > 
-> target: where to save the snaphot
+> target: (required) where to save the snaphot (absolute path)
 > 
-> path: the path you upload to qiniu
+> path: (optional) the path you upload to qiniu
 > 
-> device: use which device to take snapshot, now only support “mac"
+> device: (optional) use which device to take snapshot, now only support “mac"
 
 ### FAQ
 
@@ -44,6 +44,10 @@ message struct
 2. Multi network environment?
    
    Just deploy multi kaka instance, and use different nsq channel, that will be OK.
+   
+3. I don’t want to upload to qiniu
+   
+   Just let the path empty.
 
 ### Development
 
