@@ -1,6 +1,9 @@
 #!/usr/bin/env casperjs
 
 var casper = require("casper").create({
+	verbose: true,
+	logLevel: "info",
+	stepTimeout: 1 * 60 * 1000, // 1 min
 	pageSettings: {
 		userAgent: ""
 	}
@@ -23,3 +26,5 @@ casper.start().viewport(width, height).thenOpen(url, function () {
 		path: path
 	}));
 });
+
+casper.run();

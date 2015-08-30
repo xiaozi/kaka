@@ -21,10 +21,13 @@ func NewStorage(c *Config) *Storage {
 }
 
 func (s *Storage) put(remotePath string, localPath string) error {
+	log.Printf("Start uploading: %s to %s", localPath, remotePath)
 	ctx := context.Background()
 	err := s.Bucket.PutFile(ctx, nil, remotePath, localPath, nil)
 	if err != nil {
-		log.Print("upload failed:", err)
+		log.Printf("upload failed: %v\n", err)
+	} else {
+		log.Println("upload completed.")
 	}
 	return err
 }

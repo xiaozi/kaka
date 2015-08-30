@@ -13,6 +13,7 @@ type Config struct {
 	Bucket    string
 	NsqAddr   string
 	Workers   int
+	Timeout   int
 }
 
 func NewConfig() *Config {
@@ -21,11 +22,13 @@ func NewConfig() *Config {
 		log.Fatal("Error loading .env file")
 	}
 	workers, _ := strconv.ParseInt(os.Getenv("WORKERS"), 10, 0)
+	timeout, _ := strconv.ParseInt(os.Getenv("TIMEOUT"), 10, 0)
 	return &Config{
 		AccessKey: os.Getenv("ACCESS_KEY"),
 		SecretKey: os.Getenv("SECRET_KEY"),
 		Bucket: os.Getenv("BUCKET"),
 		NsqAddr: os.Getenv("NSQ_ADDR"),
 		Workers: int(workers),
+		Timeout: int(timeout),
 	}
 }
